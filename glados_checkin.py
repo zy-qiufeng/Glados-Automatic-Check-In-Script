@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import json
 import os
 import sys
 from typing import Any, Dict, Optional, Tuple
@@ -61,7 +62,7 @@ class GladosClient:
 
         try:
             data = response.json()
-        except ValueError:
+        except (json.JSONDecodeError, ValueError):
             return CheckinResult("error", "响应不是有效的 JSON 数据。")
 
         status, message = self._interpret_result(data)
