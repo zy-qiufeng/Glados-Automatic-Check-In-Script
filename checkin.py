@@ -126,7 +126,7 @@ def build_notifier() -> Optional[ServerChanNotifier]:
 
 
 def main() -> None:
-    cookie = (os.getenv("GLADOS_COOKIE") or os.getenv("GLaDOS_COOKIE") or COOKIE).strip()
+    cookie = (os.getenv("GLADOS_COOKIE") or os.getenv("GLaDOS_COOKIE") or COOKIE or "").strip()
     if not cookie:
         print("未设置 Cookie，请在脚本中填写 COOKIE 或设置环境变量 GLADOS_COOKIE。")
         sys.exit(1)
