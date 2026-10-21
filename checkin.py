@@ -79,7 +79,22 @@ class GladosClient:
             return "success", message
         if any(keyword in msg_lower for keyword in ["already", "repeat", "重复", "已签到"]):
             return "repeat", message
-        if any(keyword in msg_lower for keyword in ["login", "token", "cookie", "unauthorized", "无效", "验证"]):
+        if any(
+            keyword in msg_lower
+            for keyword in [
+                "login",
+                "token",
+                "cookie",
+                "unauthorized",
+                "forbidden",
+                "permission",
+                "403",
+                "无效",
+                "验证",
+                "权限",
+                "没有权限",
+            ]
+        ):
             return "auth_failed", message
         return "error", message
 
@@ -156,11 +171,13 @@ def main() -> None:
         print(message)
         if notifier:
             notifier.send("GLaDOS Cookie 失效", message)
+        sys.exit(1)
     else:
         message = f"签到失败：{result.message}"
         print(message)
         if notifier:
             notifier.send("GLaDOS 签到失败", message)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
