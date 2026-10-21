@@ -77,7 +77,16 @@ class GladosClient:
 
         if code == 0:
             return "success", message
-        if any(keyword in msg_lower for keyword in ["already", "repeat", "重复", "已签到"]):
+        if any(
+            keyword in msg_lower
+            for keyword in [
+                "already",
+                "repeat",
+                "重复",
+                "已签到",
+                "today's observation logged",
+            ]
+        ):
             return "repeat", message
         if any(
             keyword in msg_lower
